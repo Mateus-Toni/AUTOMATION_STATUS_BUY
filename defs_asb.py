@@ -5,32 +5,32 @@ def verifica(nick_name, nome, sobrenome, telefone, email, senha):
     if re.match(r'[a-z1-9_!#$%@]+', nick_name):
         c += 1
     else:
-        erro = 'nick_name'
+        erro = 'Nome de usuário'
 
     if re.match(r"[a-zA-Z\s]+", nome):
         c += 1
     else:
-        erro = 'nome'
+        erro = 'Nome'
 
     if re.match(r"[a-zA-Z\s]+", sobrenome):
         c += 1
     else:
-        erro = 'sobrenome'
+        erro = 'Sobre nome'
 
     if re.match(r"\([0-9]{2}\)\s?9\s?[0-9]{4}\s?-?\s?[0-9]{4}", telefone):
         c += 1
     else:
-        erro = 'telefone'
+        erro = 'Telefone'
 
     if re.match(r"[a-zA-Z0-9]+@[a-z]+.[a-z]+.?b?r?", email):
         c += 1
     else:
-        erro = 'email'
+        erro = 'E-mail'
 
     if re.match(r"[a-zA-Z0-9!@#$%&*]+", senha):
         c += 1
     else:
-        erro = 'senha'
+        erro = 'Senha'
 
     if c == 6:
         return True, None
@@ -38,3 +38,9 @@ def verifica(nick_name, nome, sobrenome, telefone, email, senha):
         return None, erro
 
 
+def verifica_user_email(user):
+    import re
+    if re.match(r"[a-zA-Z0-9]+@[a-z]+.[a-z]+.?b?r?", user):
+        return True
+    else:
+        return False
