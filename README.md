@@ -9,7 +9,8 @@
 - [X] Criação banco de dados usuários;
 - [X] Criação CRUD banco;
 - [ ] Criação HTML simples usuário (perfil);
-- [ ] Criação Lógica Login;
+- [X] Criação Lógica Login;
+- [X] Criação Lógica Cadastro
 - [ ] Estudos Mensagens via whatsapp automaticamente;
 - [ ] Estudos enviar emails;
 - [ ] Estudos Enviar SMS;
