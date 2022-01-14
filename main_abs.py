@@ -82,6 +82,9 @@ if is_email:
             else:
                 print('login ou senha podem estar incorretos')
 
+    else:
+        print('E-mail pode estar incorreto')
+
 else:
 
     db, cursor = Banco.open_db(NAME, PASSWORD, HOST, NAME_DB)
@@ -100,3 +103,6 @@ else:
 
             else:
                 print('login ou senha podem estar incorretos')
+
+    else:
+        print('Nome de usuário pode estar incorreto')
