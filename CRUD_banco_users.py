@@ -6,7 +6,7 @@ PASSWORD = ''
 NAME_DB = 'asb'
 HOST = 'localhost'
 
-query_create = """insert into usuarios values (default,'{}','{}','{}','{}','{}','{}')"""
+query_create = """insert into usuarios values (default,'{}','{}','{}','{}','{}','{}','{}')"""
 query_read = """select * from usuarios"""
 query_update = """update usuarios set {} = '{}' where {} = '{}'"""
 query_delete = """delete from usuarios where id_user = '{}'"""
@@ -14,7 +14,8 @@ query_delete = """delete from usuarios where id_user = '{}'"""
 
 def open_db(user, password, host, database):
     try:
-        db = mysql.connector.connect(user=user, password=password, host=host, database=database)
+        db = mysql.connector.connect(user=user, password=password,
+                                     host=host, database=database)
         cursor = db.cursor(dictionary=True)
     except:
         return None, None
@@ -22,13 +23,13 @@ def open_db(user, password, host, database):
         return db, cursor
 
 
-def create_user(nick_name, nome, sobrenome, email, senha):
+def create_user(nick_name, nome, sobrenome, telefone, email, senha):
     from datetime import datetime
     data = datetime.today().date()
     db, cursor = open_db(NAME, PASSWORD, HOST, NAME_DB)
     if db:
-        print(query_create.format(nick_name, nome, sobrenome, email, senha, data))
-        cursor.execute(query_create.format(nick_name, nome, sobrenome, email, senha, data))
+        cursor.execute(query_create.format(nick_name, nome, sobrenome, telefone,
+                                           email, senha, data))
         db.commit()
         db.close()
 
@@ -60,5 +61,43 @@ def delete_user(id_usuario):
         cursor.execute(query_delete.format(id_usuario))
         db.commit()
         db.close()
+
+
+
+def procura_nick(nick_name):
+    db, cursor = open_db(NAME, PASSWORD, HOST, NAME_DB)
+    if db:
+        cursor.execute(f"""select nick_name from usuarios 
+        where nick_name = '{nick_name}'""")
+        var = cursor.fetchone()
+        if var:
+            return False
+        else:
+            return True
+
+
+def procura_email(email):
+    db, cursor = open_db(NAME, PASSWORD, HOST, NAME_DB)
+    if db:
+        cursor.execute(f"""select email from usuarios 
+            where email = '{email}'""")
+        var = cursor.fetchone()
+        if var:
+            return False
+        else:
+            return True
+
+
+def procura_telefone(telefone):
+    db, cursor = open_db(NAME, PASSWORD, HOST, NAME_DB)
+    if db:
+        cursor.execute(f"""select telefone from usuarios 
+                where telefone = '{telefone}'""")
+        var = cursor.fetchone()
+        if var:
+            return False
+        else:
+            return True
+
 
 
