@@ -3,7 +3,6 @@ import CRUD_banco_users as Banco
 import json
 
 
-
 #costantes
 
 NAME = 'root'

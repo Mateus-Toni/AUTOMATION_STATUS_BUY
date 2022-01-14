@@ -100,4 +100,20 @@ def procura_telefone(telefone):
             return True
 
 
+def mostra_telefone(cellphone):
+
+    telefone = ''
+
+    lista = list()
+
+    for caracter in cellphone:
+        lista.append(caracter)
+
+    lista.insert(4, ' ')
+    lista.insert(6, ' ')
+    lista.insert(10, '-')
+    for caracter in lista:
+        telefone += caracter
+
+    return telefone
 
