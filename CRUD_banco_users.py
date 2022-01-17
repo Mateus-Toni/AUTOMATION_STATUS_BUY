@@ -70,10 +70,7 @@ def procura_nick(nick_name):
         cursor.execute(f"""select nick_name from usuarios 
         where nick_name = '{nick_name}'""")
         var = cursor.fetchone()
-        if var:
-            return False
-        else:
-            return True
+        return not var
 
 
 def procura_email(email):
@@ -82,10 +79,7 @@ def procura_email(email):
         cursor.execute(f"""select email from usuarios 
             where email = '{email}'""")
         var = cursor.fetchone()
-        if var:
-            return False
-        else:
-            return True
+        return not var
 
 
 def procura_telefone(telefone):
@@ -94,26 +88,17 @@ def procura_telefone(telefone):
         cursor.execute(f"""select telefone from usuarios 
                 where telefone = '{telefone}'""")
         var = cursor.fetchone()
-        if var:
-            return False
-        else:
-            return True
+        return not var
 
 
 def mostra_telefone(cellphone):
 
-    telefone = ''
-
-    lista = list()
-
-    for caracter in cellphone:
-        lista.append(caracter)
+    lista = list(cellphone)
 
     lista.insert(4, ' ')
     lista.insert(6, ' ')
-    lista.insert(10, '-')
-    for caracter in lista:
-        telefone += caracter
+    lista.insert(11, '-')
+    return ''.join(lista)
 
-    return telefone
+
 

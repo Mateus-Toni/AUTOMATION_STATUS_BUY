@@ -16,17 +16,17 @@ with open('users.json', 'r+') as arq:
     var = json.load(arq)
     for dicio in var:
         for k, v in dicio.items():
-            if k == 'first_name':
-                nome = v
-            if k == 'last_name':
-                sobrenome = v
-            if k == 'nick_name':
-                nick_name = v
             if k == 'cellphone':
                 telefone = v
-            if k == 'email':
+            elif k == 'email':
                 email = v
-            if k == 'password':
+            elif k == 'first_name':
+                nome = v
+            elif k == 'last_name':
+                sobrenome = v
+            elif k == 'nick_name':
+                nick_name = v
+            elif k == 'password':
                 senha = v
 
 
