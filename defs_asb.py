@@ -32,15 +32,9 @@ def verifica(nick_name, nome, sobrenome, telefone, email, senha):
     else:
         erro = 'Senha'
 
-    if c == 6:
-        return True, None
-    else:
-        return None, erro
+    return (True, None) if c == 6 else (None, erro)
 
 
 def verifica_user_email(user):
     import re
-    if re.match(r"[a-zA-Z0-9]+@[a-z]+.[a-z]+.?b?r?", user):
-        return True
-    else:
-        return False
+    return bool(re.match(r"[a-zA-Z0-9]+@[a-z]+.[a-z]+.?b?r?", user))
