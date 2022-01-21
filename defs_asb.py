@@ -38,3 +38,9 @@ def verifica(nick_name, nome, sobrenome, telefone, email, senha):
 def verifica_user_email(user):
     import re
     return bool(re.match(r"[a-zA-Z0-9]+@[a-z]+.[a-z]+.?b?r?", user))
+
+
+def retorna_num(id_user):
+    id_user = id_user['id_user']
+
+    return id_user

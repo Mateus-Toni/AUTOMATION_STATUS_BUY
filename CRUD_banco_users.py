@@ -1,4 +1,4 @@
-
+import defs_asb as funcao
 import mysql.connector
 
 NAME = 'root'
@@ -101,4 +101,13 @@ def mostra_telefone(cellphone):
     return ''.join(lista)
 
 
+def guarda_codigo(nick_name, codigo):
+    db, cursor = open_db(NAME, PASSWORD, HOST, NAME_DB)
 
+    if db:
+        cursor.execute(f"""select id_user from usuarios where nick_name = '{nick_name}'""")
+        id_user = funcao.retorna_num(cursor.fetchone())
+        cursor.execute(f"""insert into codigo values (default, '{codigo.upper()}', '{id_user}')""")
+        db.commit()
+        db.close()
+        

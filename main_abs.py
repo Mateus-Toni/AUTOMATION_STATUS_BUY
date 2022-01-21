@@ -17,7 +17,7 @@ with open('users.json', 'r+') as arq:
     for dicio in var:
         for k, v in dicio.items():
             if k == 'cellphone':
-                telefone = v
+                telefone = v.replace(' ', '').replace('-', '')
             elif k == 'email':
                 email = v
             elif k == 'first_name':
@@ -29,12 +29,11 @@ with open('users.json', 'r+') as arq:
             elif k == 'password':
                 senha = v
 
-
 valido, erro = funcao.verifica(nick_name, nome, sobrenome, telefone, email, senha)
 
 if valido:
 
-    TEL = Banco.procura_telefone(telefone.replace(' ', '').replace('-', ''))
+    TEL = Banco.procura_telefone(telefone)
     NICK = Banco.procura_nick(nick_name)
     EMAIL = Banco.procura_email(email)
 
@@ -105,3 +104,21 @@ else:
 
     else:
         print('Nome de usuário pode estar incorreto')
+
+# lógica para guardar o código de rastreio no banco de dados
+
+codigo = 'AA123456789BR'
+
+nick_name_logado = nick_name
+
+db, cursor = Banco.open_db(NAME, PASSWORD, HOST, NAME_DB)
+
+if db:
+
+    cursor.execute(f"""select id_user from usuarios where nick_name = '{nick_name_logado}'""")
+    id_user = funcao.retorna_num(cursor.fetchone())
+    cursor.execute(f"""insert into codigo values (default, '{codigo.upper()}', '{id_user}')""")
+    db.commit()
+    db.close()
+
+
