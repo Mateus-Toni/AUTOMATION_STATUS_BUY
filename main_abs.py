@@ -1,7 +1,9 @@
+import werkzeug
+
 import defs_asb as funcao
 import CRUD_banco_users as Banco
 import json
-
+from werkzeug.security import safe_str_cmp
 
 #costantes
 
@@ -28,6 +30,7 @@ with open('users.json', 'r+') as arq:
                 nick_name = v
             elif k == 'password':
                 senha = v
+
 
 valido, erro = funcao.verifica(nick_name, nome, sobrenome, telefone, email, senha)
 
@@ -56,54 +59,33 @@ else:
 
     print(f'{erro} não é válido')
 
-
 # lógica login
 
 is_email = funcao.verifica_user_email(email)
 
-if is_email:
+db, cursor = Banco.open_db(NAME, PASSWORD, HOST, NAME_DB)
 
-    db, cursor = Banco.open_db(NAME, PASSWORD, HOST, NAME_DB)
-    if db:
+if db:
 
-        cursor.execute(f"""select email from usuarios where email = '{email}';""")
-        existe = cursor.fetchone()
-
-        if existe:
-
-            cursor.execute(f"""select senha from usuarios where email = '{email}' """)
-            valida_senha = cursor.fetchone()
-
-            if valida_senha['senha'] == senha:
-                print('login feito')
-
-            else:
-                print('login ou senha podem estar incorretos')
-
+    if is_email:
+        cursor.execute(f"select id_user from usuarios where email = '{email}';")
     else:
-        print('E-mail pode estar incorreto')
+        cursor.execute(f"select id_user from usuarios where nick_name = '{nick_name}';")
 
+
+    ID = cursor.fetchone()
+    if ID:
+        print(f"""select senha from usuarios where id_user = '{ID['id_user']}';""")
+        cursor.execute(f"""select senha from usuarios where id_user = '{ID['id_user']}';""")
+        valida_senha = cursor.fetchone()
+
+
+        if werkzeug.security.safe_str_cmp(valida_senha['senha'], senha):
+            print('login feito')
+        else:
+            print('login ou senha podem estar incorretos')
 else:
-
-    db, cursor = Banco.open_db(NAME, PASSWORD, HOST, NAME_DB)
-    if db:
-
-        cursor.execute(f"""select nick_name from usuarios where nick_name = '{nick_name}';""")
-        existe = cursor.fetchone()
-
-        if existe:
-
-            cursor.execute(f"""select senha from usuarios where nick_name = '{nick_name}' """)
-            valida_senha = cursor.fetchone()
-
-            if valida_senha['senha'] == senha:
-                print('login feito')
-
-            else:
-                print('login ou senha podem estar incorretos')
-
-    else:
-        print('Nome de usuário pode estar incorreto')
+    print("login ou senha podem estar incorretos")
 
 # lógica para guardar o código de rastreio no banco de dados
 

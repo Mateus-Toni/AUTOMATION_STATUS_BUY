@@ -1,0 +1,40 @@
+ul {
+border: 1px solid black;
+width: 225px;
+height: 450px;
+padding: 0px 0px 0px 50px;
+background: white;
+margin-left: auto;
+margin-right: auto;
+border-radius: 10px 100px;
+box-shadow: 10px 0px 10px 5px #000000;
+
+}
+
+h4 {
+display: inline;
+color: black;
+margin-top: auto;
+margin-bottom: auto;
+}
+
+body {
+background: rgb(1, 20, 29);
+}
+a {
+color: white;
+margin: 0px 10px;
+}
+
+h1 {
+color: white;
+}
+
+h3{
+color: black;
+margin: 10;
+}
+
+#fr{
+color: black;
+}
