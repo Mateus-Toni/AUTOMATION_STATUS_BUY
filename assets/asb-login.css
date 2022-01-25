@@ -1,0 +1,101 @@
+*{
+    font-family: 'Play', sans-serif;
+    margin: 0;
+}
+body{
+    
+    background: rgb(255, 255, 255);
+}
+#corpo{
+    background-image: url('./IMAGEBACKGROUND.png');
+    background-size: 100%; 
+    background-position: center;
+    background-repeat: no-repeat;
+}   
+#title{
+    
+    color: white;
+    text-align: center;
+    padding: 25px;
+    background: rgb(12, 12, 12); 
+}
+h4 {
+    margin-top: 10px;
+    text-align: right;
+    margin-right: 5px;
+}
+
+.foto{
+    display: inline;
+}
+
+.login{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: rgb(0, 0, 0);
+}
+
+#login{
+   width: 200px;
+   height: 30px; 
+   margin-top: 50px; 
+   background-color: rgb(12, 12, 12);
+    color: rgb(255, 255, 255);
+    border: rgb(255, 255, 255);
+    border-radius: 20px;
+}
+
+input{
+    width: 190px;
+    height: 20px;
+    border-radius: 20px;   
+    margin-top: 10px;
+}
+
+#lembrar{
+    width: 10px;
+    height: 10px;
+    margin-top: 50px;
+    display: inline;
+}
+
+
+ul {
+    border:1px solid rgb(0, 0, 0);
+    margin-left: auto;
+    margin-right: auto;
+    width: 20em;
+    height: 25em;
+    padding: 20px 20px 20px 20px;
+    border-radius: 20px;
+    box-shadow: 10px 10px 13px 2px #1a1919;
+    margin-bottom: 100px;
+    margin-top: 50px;
+    background: rgb(255, 255, 255) ;
+}
+
+footer{
+    background: rgb(12, 12, 12); 
+    text-align: center;
+    margin-top: 0px;
+    padding: 100px;
+    
+}
+
+#check{
+    text-align: left;
+    color: rgb(12, 12, 12);
+}
+
+a{
+    margin-right: 30px;
+    color: rgb(255, 255, 255);
+}
+
+#cadastro{
+    background-color: rgb(12, 12, 12);
+    color: white;
+    border: none;
+}
+
