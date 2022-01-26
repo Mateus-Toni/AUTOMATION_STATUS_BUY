@@ -8,10 +8,10 @@
 - [X] Modelagem Banco Usuarios;
 - [X] Criação banco de dados usuários;
 - [X] Criação CRUD banco;
-- [ ] Criação HTML simples usuário (perfil);
+- [x] Criação HTML simples usuário (perfil);
 - [X] Criação Lógica Login;
 - [X] Criação Lógica Cadastro;
-- [ ] Estudos Mensagens via whatsapp automaticamente;
+- [X] Estudos Mensagens via whatsapp automaticamente;
 - [ ] Estudos enviar emails;
 - [ ] Estudos Enviar SMS;
 - [ ] Criação Lógica enviar Mensagem WPP;

@@ -110,4 +110,16 @@ def guarda_codigo(nick_name, codigo):
         cursor.execute(f"""insert into codigo values (default, '{codigo.upper()}', '{id_user}')""")
         db.commit()
         db.close()
-        
+
+
+def guarda_cod(codigo, nick_name_logado):
+    import defs_asb as funcao
+    db, cursor = open_db(NAME, PASSWORD, HOST, NAME_DB)
+
+    if db:
+
+        cursor.execute(f"""select id_user from usuarios where nick_name = '{nick_name_logado}'""")
+        id_user = funcao.retorna_num(cursor.fetchone())
+        cursor.execute(f"""insert into codigo values (default, '{codigo.upper()}', '{id_user}')""")
+        db.commit()
+        db.close()

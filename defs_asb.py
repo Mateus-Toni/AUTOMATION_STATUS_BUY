@@ -44,3 +44,5 @@ def retorna_num(id_user):
     id_user = id_user['id_user']
 
     return id_user
+
+    
