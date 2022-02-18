@@ -101,18 +101,7 @@ def mostra_telefone(cellphone):
     return ''.join(lista)
 
 
-def guarda_codigo(nick_name, codigo):
-    db, cursor = open_db(NAME, PASSWORD, HOST, NAME_DB)
-
-    if db:
-        cursor.execute(f"""select id_user from usuarios where nick_name = '{nick_name}'""")
-        id_user = funcao.retorna_num(cursor.fetchone())
-        cursor.execute(f"""insert into codigo values (default, '{codigo.upper()}', '{id_user}')""")
-        db.commit()
-        db.close()
-
-
-def guarda_cod(codigo, nick_name_logado):
+def guarda_cod(apelido, codigo, nick_name_logado):
     import defs_asb as funcao
     db, cursor = open_db(NAME, PASSWORD, HOST, NAME_DB)
 
@@ -120,6 +109,17 @@ def guarda_cod(codigo, nick_name_logado):
 
         cursor.execute(f"""select id_user from usuarios where nick_name = '{nick_name_logado}'""")
         id_user = funcao.retorna_num(cursor.fetchone())
-        cursor.execute(f"""insert into codigo values (default, '{codigo.upper()}', '{id_user}')""")
+        cursor.execute(f"""insert into codigo values (default, '{codigo.upper()}', '{id_user}', '{apelido}')""")
         db.commit()
         db.close()
+        
+        
+def return_user_id(nick):
+    db, cursor = open_db(NAME, PASSWORD, HOST, NAME_DB)
+    
+    if db:
+        
+        cursor.execute(f"select id_user from usuarios where nick_name = '{nick}'")
+        id_user = cursor.fetchall()
+        id_user = id_user['id_user']
+        return id_user

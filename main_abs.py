@@ -1,9 +1,8 @@
-import werkzeug
+
 
 import defs_asb as funcao
 import CRUD_banco_users as Banco
 import json
-from werkzeug.security import safe_str_cmp
 
 #costantes
 
@@ -73,14 +72,12 @@ if db:
         cursor.execute(f"select id_user from usuarios where nick_name = '{nick_name}';")
 
 
-    ID = cursor.fetchone()
-    if ID:
-        print(f"""select senha from usuarios where id_user = '{ID['id_user']}';""")
+    if ID := cursor.fetchone():
         cursor.execute(f"""select senha from usuarios where id_user = '{ID['id_user']}';""")
         valida_senha = cursor.fetchone()
 
 
-        if werkzeug.security.safe_str_cmp(valida_senha['senha'], senha):
+        if valida_senha['senha'] == senha:
             print('login feito')
         else:
             print('login ou senha podem estar incorretos')

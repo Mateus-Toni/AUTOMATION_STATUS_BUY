@@ -10,10 +10,9 @@ body{
     background-image: url('./IMAGEBACKGROUND.png');
     background-size: 100%; 
     background-position: center;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
 }   
 #title{
-    
     color: white;
     text-align: center;
     padding: 25px;
@@ -31,19 +30,17 @@ h4 {
 
 .login{
     text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
     color: rgb(0, 0, 0);
 }
 
 #login{
    width: 200px;
    height: 30px; 
-   margin-top: 50px; 
    background-color: rgb(12, 12, 12);
     color: rgb(255, 255, 255);
     border: rgb(255, 255, 255);
     border-radius: 20px;
+    margin-top: 50px;
 }
 
 input{
@@ -66,12 +63,12 @@ ul {
     margin-left: auto;
     margin-right: auto;
     width: 20em;
-    height: 25em;
+    height: 30em;
     padding: 20px 20px 20px 20px;
     border-radius: 20px;
     box-shadow: 10px 10px 13px 2px #1a1919;
     margin-bottom: 100px;
-    margin-top: 50px;
+    margin-top: 0px;
     background: rgb(255, 255, 255) ;
 }
 
@@ -80,7 +77,6 @@ footer{
     text-align: center;
     margin-top: 0px;
     padding: 100px;
-    
 }
 
 #check{
@@ -91,11 +87,13 @@ footer{
 a{
     margin-right: 30px;
     color: rgb(255, 255, 255);
+    text-decoration: none;
 }
 
 #cadastro{
     background-color: rgb(12, 12, 12);
     color: white;
     border: none;
+    padding: 2px;
 }
 
