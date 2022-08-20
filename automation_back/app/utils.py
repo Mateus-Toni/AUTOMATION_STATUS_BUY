@@ -1,15 +1,30 @@
+import logging
+import re 
 from functools import wraps
 
-def validate_data_user(func):
+
+REGEX_EMAIL = r'^([\w\.]+@[\w]+?\.com\.?b?r?)$'
+
+REGEX_BIRTHDAY = r'^([\d]{4}\-[\d]{2}\-[\d]{2})$'
+
+REGEX_PHONE = r'^(\(?[\d]{2}\)?9[\d]{4}\-?[\d]{4})$'
+
+REGEX_CPF = r'^([\d]{3}\.?[\d]{3}\.?[\d]{3}\-?[\d]{2})$'
+
+def validate_data(email, birthday, cpf, phone):
     
-    @wraps(func)
-    def verify_data(*args, **kw):
+    if re.match(REGEX_EMAIL, email) and re.match(REGEX_BIRTHDAY, birthday):
         
-        print(kw)
+        if re.match(REGEX_CPF, cpf) and re.match(REGEX_PHONE, phone):
+            
+            return True
         
-        obj = func(*args, **kw)
+        else:
+            
+            return False
         
-        return obj
-    
-    return verify_data
+    else:
+        
+        return False
+        
         
