@@ -5,12 +5,13 @@
  O intuito é que chegue uma msg no seu whats ou no seu E-mail atualizações frequente de tempos em tempos sobre o status da sua compra!!
  
 ##TO DO Part1:
-- [ ] Modelagem Banco Usuarios;
-- [ ] Criação banco de dados usuários;
-- [ ] Criação CRUD banco;
+- [X] Modelagem Banco Usuarios;
+- [X] Criação banco de dados usuários;
+- [X] Criação CRUD banco;
 - [ ] Criação HTML simples usuário (perfil);
 - [ ] Criação Lógica Login;
-- [ ] Criação Lógica Cadastro;
+- [X] Criação Lógica Cadastro;
+- [X] Criação Lógica atualizar usuario;
 - [ ] Estudos Mensagens via whatsapp automaticamente;
 - [ ] Estudos enviar emails;
 - [ ] Estudos Enviar SMS;

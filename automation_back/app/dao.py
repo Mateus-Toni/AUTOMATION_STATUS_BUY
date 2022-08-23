@@ -46,7 +46,53 @@ class DataBase:
 class DataBaseUser:
     
     @staticmethod
-    def verify_if_data_exists(email, cpf, phone):
+    def conn_db(query, fetch=False):
+        
+        if fetch:
+            
+            with DataBase(NAME, PASSWORD, HOST, DATABASE) as cursor:
+                
+                if cursor:
+                    
+                    try:
+                    
+                        cursor.execute(query)
+                        data = cursor.fetchall()
+                
+                    except Exception as erro_:
+                    
+                        logging.warning('-'*50)
+                        logging.warning(f'error in DB\nname error:\n{erro_}')
+                        logging.warning('-'*50)
+                        
+                        return False
+                
+                    else:
+                        
+                        return data
+                    
+        with DataBase(NAME, PASSWORD, HOST, DATABASE) as cursor:
+            
+            if cursor:
+                
+                try:
+                    
+                    cursor.execute(query)
+                
+                except Exception as erro_:
+                    
+                    logging.warning('-'*50)
+                    logging.warning(f'error in DB\nname error:\n{erro_}')
+                    logging.warning('-'*50)
+                    
+                    return False
+                
+                else:
+                    
+                    return True
+        
+    @staticmethod
+    def verify_if_user_exists(email, cpf, phone):
         query = f"""
         select email, cpf, phone from users
         where 
@@ -94,63 +140,44 @@ class DataBaseUser:
         '{obj.cpf}'
         );"""
         
-        with DataBase(NAME, PASSWORD, HOST, DATABASE) as cursor:
-            
-            if cursor:
-                
-                try:
-                    
-                    cursor.execute(query)
-                
-                except Exception as erro_:
-                    
-                    logging.warning('-'*50)
-                    logging.warning(f'error in DB\nname error:\n{erro_}')
-                    logging.warning('-'*50)
-                    
-                    return False
-                
-                else:
-                    
-                    return True
+        return DataBaseUser.conn_db(query)
     
     @staticmethod          
-    def update_user(obj, name, last_name, cpf, phone, password, email, birthday):
+    def update_user(obj, name, last_name, cpf, phone, email, birthday):
         
         query = f"""
-        UPDATE users
-        SET name = '{name}',
+        UPDATE users 
+        SET user_name = '{name}',
         last_name = '{last_name}',
         birthday = '{birthday}',
-        password = '{password}',
         phone = '{phone}',
         email = '{email}',
-        cpf = '{cpf}'
-        WHERE 
-        phone = '{obj.phone}'
-        email = '{obj.email}'
-        cpf = '{obj.cpf}';
+        cpf = '{cpf}' 
+        where
+        phone = '{obj.phone}' and
+        email = '{obj.email}' and
+        cpf = '{obj.cpf}'
         """
         
-        with DataBase(NAME, PASSWORD, HOST, DATABASE) as cursor:
-            
-            if cursor:
-                
-                try:
-                    
-                    cursor.execute(query)
-                
-                except Exception as erro_:
-                    
-                    logging.warning('-'*50)
-                    logging.warning(f'error in DB\nname error:\n{erro_}')
-                    logging.warning('-'*50)
-                    
-                    return False
-                
-                else:
-                    
-                    return True
+        return DataBaseUser.conn_db(query)
     
-                
-              
+    @staticmethod
+    def get_user_data_db(email):
+        
+        query = f"""
+        select * from users 
+        where email = '{email}'
+        """
+        
+        return DataBaseUser.conn_db(query, fetch=True)
+    
+    @staticmethod
+    def get_user_by_id(id_user):
+        
+        query = f"""
+        select * from users 
+        where id = '{id_user}';
+        """
+        
+        return DataBaseUser.conn_db(query, fetch=True)[0]
+        

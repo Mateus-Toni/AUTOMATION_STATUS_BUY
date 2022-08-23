@@ -15,7 +15,7 @@ class User:
     
     def create_user_db(self):
         
-        exists = DataBaseUser.verify_if_data_exists(
+        exists = DataBaseUser.verify_if_user_exists(
             cpf=self.cpf, 
             email=self.email, 
             phone=self.phone
@@ -55,8 +55,8 @@ class User:
         
         pass
     
-    
-    def update_user_db(self, name, last_name, cpf, phone, password, email, birthday):
+
+    def update_user_db(self, name, last_name, cpf, phone, email, birthday):
         
         valid = utils.validate_data(
                 cpf=cpf, 
@@ -73,7 +73,6 @@ class User:
                 last_name,
                 cpf,
                 phone,
-                password,
                 email,
                 birthday
                 )
@@ -89,7 +88,7 @@ class User:
         else:
             
             return {'msg': 'invalid input'}, 400
-    
-    
-    
 
+            
+        
+        
