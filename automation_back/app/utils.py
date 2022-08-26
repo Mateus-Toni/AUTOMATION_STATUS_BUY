@@ -11,7 +11,9 @@ REGEX_PHONE = r'^(\(?[\d]{2}\)?9[\d]{4}\-?[\d]{4})$'
 
 REGEX_CPF = r'^([\d]{3}\.?[\d]{3}\.?[\d]{3}\-?[\d]{2})$'
 
-def validate_data(email, birthday, cpf, phone):
+REGEX_CODE = r'^(AA[0-9]{9}BR)$'
+
+def validate_data_user(email, birthday, cpf, phone):
     
     if re.match(REGEX_EMAIL, email) and re.match(REGEX_BIRTHDAY, birthday):
         
@@ -28,3 +30,6 @@ def validate_data(email, birthday, cpf, phone):
         return False
         
         
+def validate_data_code(code):
+    
+    return re.match(REGEX_CODE, code)

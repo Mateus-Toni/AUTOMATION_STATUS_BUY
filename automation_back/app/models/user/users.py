@@ -1,3 +1,5 @@
+from werkzeug.security import generate_password_hash
+
 import utils
 from dao import DataBaseUser
 
@@ -9,7 +11,7 @@ class User:
         self.last_name = last_name
         self.phone = phone
         self.email = email
-        self.password = password
+        self.password = generate_password_hash(password=password)
         self.birthday = birthday    
         self.cpf = cpf    
     
@@ -27,7 +29,7 @@ class User:
        
         else:
             
-            valid = utils.validate_data(
+            valid = utils.validate_data_user(
                 cpf=self.cpf, 
                 email=self.email, 
                 phone=self.phone, 
@@ -44,7 +46,7 @@ class User:
                 
                 else:
                     
-                    return {'msg': 'error in '}, 400     
+                    return {'msg': 'error in db'}, 400     
             
             else:
                 
@@ -58,7 +60,7 @@ class User:
 
     def update_user_db(self, name, last_name, cpf, phone, email, birthday):
         
-        valid = utils.validate_data(
+        valid = utils.validate_data_user(
                 cpf=cpf, 
                 email=email, 
                 phone=phone, 

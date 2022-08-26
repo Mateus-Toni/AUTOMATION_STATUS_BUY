@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from werkzeug.security import check_password_hash
 
 from models.user.users import User
 from dao import DataBaseUser
@@ -42,15 +43,9 @@ def cadastro():
     else:
         
         return {"msg": "missing json data"}, 400
-    
-
-@app.route('/login', methods=['POST'])
-def login():
-    
-    return ''
 
 
-@app.route('/meu_perfil/<id_user: int>/update', methods=['GET', 'POST'])  # type: ignore
+@app.route('/meu_perfil/<id_user>/update', methods=['GET', 'POST'])  # type: ignore
 def update(id_user):
     
     if request.method == 'GET':
@@ -112,6 +107,45 @@ def update(id_user):
                   
                 return {"msg": "wrong json data"}, 400
         
+        
+@app.route('/login', methods=['POST'])
+def login():
+    
+    try:
+        
+        data = request.get_json()
+        
+    except Exception as erro_:
+        
+        return {'msg': 'missing json data'}, 400
+    
+    else:
+        
+        if data:
+            
+            email_user = data['email']
+            password_user = data['password'].strip()
+            
+            password_db = DataBaseUser.get_password_by_email(email_user)
+            
+            if password_db:
+                
+                if check_password_hash(password=password_user, pwhash=password_db):
+                    
+                    return {'msg': 'sucess'}, 200
+                
+                else:
+                    
+                    return {'msg': 'invalid data'}, 401
+                
+            else:
+                
+                return {'msg': 'invalid data or user dont exists'}, 400
+        
+        else:
+            
+            return {'msg': 'missing json data'}, 400
+    
         
         
     

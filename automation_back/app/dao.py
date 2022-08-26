@@ -43,6 +43,53 @@ class DataBase:
             
             logging.critical(erro)
             
+    """def conn_db(self, query, fetch=False):
+        
+        if fetch:
+            
+            with DataBase(NAME, PASSWORD, HOST, DATABASE) as cursor:
+                
+                if cursor:
+                    
+                    try:
+                    
+                        cursor.execute(query)
+                        data = cursor.fetchall()
+                
+                    except Exception as erro_:
+                    
+                        logging.warning('-'*50)
+                        logging.warning(f'error in DB\nname error:\n{erro_}')
+                        logging.warning('-'*50)
+                        
+                        return False
+                
+                    else:
+                        
+                        return data
+        
+        else:      
+            
+            with DataBase(NAME, PASSWORD, HOST, DATABASE) as cursor:
+                
+                if cursor:
+                    
+                    try:
+                        
+                        cursor.execute(query)
+                    
+                    except Exception as erro_:
+                        
+                        logging.warning('-'*50)
+                        logging.warning(f'error in DB\nname error:\n{erro_}')
+                        logging.warning('-'*50)
+                        
+                        return False
+                    
+                    else:
+                        
+                        return True"""
+            
 class DataBaseUser:
     
     @staticmethod
@@ -70,26 +117,28 @@ class DataBaseUser:
                     else:
                         
                         return data
-                    
-        with DataBase(NAME, PASSWORD, HOST, DATABASE) as cursor:
+        
+        else:      
             
-            if cursor:
+            with DataBase(NAME, PASSWORD, HOST, DATABASE) as cursor:
                 
-                try:
+                if cursor:
                     
-                    cursor.execute(query)
-                
-                except Exception as erro_:
+                    try:
+                        
+                        cursor.execute(query)
                     
-                    logging.warning('-'*50)
-                    logging.warning(f'error in DB\nname error:\n{erro_}')
-                    logging.warning('-'*50)
+                    except Exception as erro_:
+                        
+                        logging.warning('-'*50)
+                        logging.warning(f'error in DB\nname error:\n{erro_}')
+                        logging.warning('-'*50)
+                        
+                        return False
                     
-                    return False
-                
-                else:
-                    
-                    return True
+                    else:
+                        
+                        return True
         
     @staticmethod
     def verify_if_user_exists(email, cpf, phone):
@@ -180,4 +229,94 @@ class DataBaseUser:
         """
         
         return DataBaseUser.conn_db(query, fetch=True)[0]
+    
+    @staticmethod
+    def get_password_by_email(email):
         
+        query = f"""
+        select password from users
+        where
+        email = '{email}';
+        """
+        
+        return DataBaseUser.conn_db(query, fetch=True)
+
+class DataBaseCode:
+    
+    @staticmethod
+    def conn_db(query, fetch=False):
+        
+        if fetch:
+            
+            with DataBase(NAME, PASSWORD, HOST, DATABASE) as cursor:
+                
+                if cursor:
+                    
+                    try:
+                    
+                        cursor.execute(query)
+                        data = cursor.fetchall()
+                
+                    except Exception as erro_:
+                    
+                        logging.warning('-'*50)
+                        logging.warning(f'error in DB\nname error:\n{erro_}')
+                        logging.warning('-'*50)
+                        
+                        return False
+                
+                    else:
+                        
+                        return data
+        
+        else:      
+            
+            with DataBase(NAME, PASSWORD, HOST, DATABASE) as cursor:
+                
+                if cursor:
+                    
+                    try:
+                        
+                        cursor.execute(query)
+                    
+                    except Exception as erro_:
+                        
+                        logging.warning('-'*50)
+                        logging.warning(f'error in DB\nname error:\n{erro_}')
+                        logging.warning('-'*50)
+                        
+                        return False
+                    
+                    else:
+                        
+                        return True
+    
+    @staticmethod
+    def create_code(obj):
+        
+        query = f"""
+        insert into user_code values
+        (
+        default,
+        '{obj.code}',
+        '{obj.id_user}',
+        '{obj.surname}',
+        '{obj.status}',
+        '{obj.type_mensage}',
+        '{obj.timing_to_mensage}',
+        );"""
+        
+        return DataBaseCode.conn_db(query)
+    
+    @staticmethod
+    def verify_if_code_exists(obj):
+        
+        query = f"""
+        select * from user_code
+        where id_user = '{obj.id_user}' and
+        code = '{obj.code}';
+        """
+        
+        return DataBaseCode.conn_db(query, fetch=True)
+    
+    
