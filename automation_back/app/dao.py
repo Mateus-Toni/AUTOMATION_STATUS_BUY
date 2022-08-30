@@ -319,4 +319,21 @@ class DataBaseCode:
         
         return DataBaseCode.conn_db(query, fetch=True)
     
+    @staticmethod
+    def update_code(obj, code,  surname, status, type_mensage, timing_to_mensage):
+        
+        query = f"""
+        UPDATE users_code 
+        SET code = '{code}',
+        surname = '{surname}',
+        status = '{status}',
+        type_mensage = '{type_mensage}',
+        timing_to_mensage = '{timing_to_mensage}' 
+        where
+        code = '{obj.code}' and
+        id_user = '{obj.id_user}';
+        """
+        
+        return DataBaseCode.conn_db(query)
+    
     

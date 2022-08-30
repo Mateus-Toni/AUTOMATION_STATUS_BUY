@@ -13,7 +13,7 @@
 - [ ] implementar esqueceu sua senha
 - [ ] criar função de cálculo para validar cpf
 - [ ] Criação HTML simples usuário (perfil);
-- [ ] Criação Lógica Login;
+- [X] Criação Lógica Login;
 - [X] Criação Lógica Cadastro;
 - [X] Criação Lógica atualizar usuario;
 - [ ] Estudos Mensagens via whatsapp automaticamente;

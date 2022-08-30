@@ -147,9 +147,7 @@ def login():
             return {'msg': 'missing json data'}, 400
     
         
-        
-    
-    
+
     
 
 if __name__ == '__main__':

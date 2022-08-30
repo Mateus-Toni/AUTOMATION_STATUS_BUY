@@ -41,10 +41,21 @@ class Code:
             return {'msg': 'invalid input'}, 400
         
         
-    
-    def update_code_db(self):
+    def update_code_db(self, code, surname, status, type_mensage, timing_to_mensage):
         
-        pass
+        if utils.validate_data_code(self.code):
+            
+            if DataBaseCode.update_code(self, code, surname, status, type_mensage, timing_to_mensage):
+                
+                return {'msg': 'sucess'}, 200
+            
+            else:
+                
+                return {'msg': 'error in db'}, 400
+        
+        else:
+            
+            return {'msg': 'invalid input'}, 400
     
     def delete_code_db(self):
         
