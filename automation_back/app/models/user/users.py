@@ -91,6 +91,10 @@ class User:
             
             return {'msg': 'invalid input'}, 400
 
-            
+
+    def get_user_id_by_email(self):
         
+        return DataBaseUser.get_id_by_email(self.email)  
+        
+    
         
