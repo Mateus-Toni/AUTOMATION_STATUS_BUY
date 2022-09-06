@@ -91,42 +91,56 @@ def update(id_user):
             
         elif request.method == 'POST':
             
-            try:
+            two_auth = get_jwt()['two_auth']
             
-                data = request.get_json()
-                
-            except:
-                
-                return {"msg": "missing json data"}, 400
+            if two_auth:
             
-            else:
+                try:
                 
-                if data:
+                    data = request.get_json()
                     
-                    old_data_user = DataBaseUser.get_user_by_id(id_user)
+                except:
                     
-                    user = User(
-                        name=old_data_user["user_name"],
-                        last_name=old_data_user["last_name"],
-                        phone=old_data_user["phone"],
-                        email=old_data_user["email"],
-                        password=old_data_user["user_password"],
-                        birthday=old_data_user["birthday"],
-                        cpf=old_data_user["cpf"]
-                    ).update_user_db(
-                        name=data["user_name"],
-                        last_name=data["last_name"],
-                        phone=data["phone"],
-                        email=data["email"],
-                        birthday=data["birthday"],
-                        cpf=data["cpf"]   
-                    )
-                    
-                    return jsonify(user)
+                    return {"msg": "missing json data"}, 400
                 
                 else:
                     
-                    return {"msg": "wrong json data"}, 400
+                    if data:
+                        
+                        old_data_user = DataBaseUser.get_user_by_id(id_user)
+                        
+                        if old_data_user:
+                            
+                            user = User(
+                                name=old_data_user["user_name"],
+                                last_name=old_data_user["last_name"],
+                                phone=old_data_user["phone"],
+                                email=old_data_user["email"],
+                                password=old_data_user["user_password"],
+                                birthday=old_data_user["birthday"],
+                                cpf=old_data_user["cpf"]
+                            ).update_user_db(
+                                name=data["user_name"],
+                                last_name=data["last_name"],
+                                phone=data["phone"],
+                                email=data["email"],
+                                birthday=data["birthday"],
+                                cpf=data["cpf"]   
+                            )
+                            
+                            return jsonify(user)
+                        
+                        else:
+                            
+                            return {'msg': 'error in update user'}
+                        
+                    else:
+                        
+                        return {"msg": "wrong json data"}, 400
+            
+            else:
+                
+                return {'msg': 'two_auth is required'}
     
     else:
         
@@ -155,9 +169,11 @@ def login():
             if password_db:
             
                 if check_password_hash(password=password_user, pwhash=password_db['user_password']):
+                        
+                    dict_id_user = DataBaseUser.get_id_by_email(email_user)
                     
-                    id_user = DataBaseUser.get_id_by_email(email_user)['id']
-                    
+                    id_user = dict_id_user['id'] if dict_id_user else 0
+                        
                     two_auth = DataBaseTwoAuth.verify_if_two_auth_exists(id_user)
                     
                     if two_auth:

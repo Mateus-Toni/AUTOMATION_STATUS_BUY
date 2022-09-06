@@ -229,7 +229,26 @@ class DataBaseUser:
         where id = '{id_user}';
         """
         
-        return DataBaseUser.conn_db(query, fetch=True)[0]
+        with DataBase(NAME, PASSWORD, HOST, DATABASE) as cursor:
+                
+            if cursor:
+                
+                try:
+                
+                    cursor.execute(query)
+                    data = cursor.fetchall()
+            
+                except Exception as erro_:
+                
+                    logging.warning('-'*50)
+                    logging.warning(f'error in DB\nname error:\n{erro_}')
+                    logging.warning('-'*50)
+                    
+                    return False
+            
+                else:
+                    
+                    return data
     
     @staticmethod
     def get_password_by_email(email):
@@ -268,8 +287,26 @@ class DataBaseUser:
         select id from users where email = '{email}';
         """
         
-        return DataBaseUser.conn_db(query, fetch=True)[0]
-
+        with DataBase(NAME, PASSWORD, HOST, DATABASE) as cursor:
+                
+            if cursor:
+                
+                try:
+                
+                    cursor.execute(query)
+                    data = cursor.fetchone()
+            
+                except Exception as erro_:
+                
+                    logging.warning('-'*50)
+                    logging.warning(f'error in DB\nname error:\n{erro_}')
+                    logging.warning('-'*50)
+                    
+                    return False
+            
+                else:
+                    
+                    return data
 
 class DataBaseCode:
     
@@ -365,8 +402,7 @@ class DataBaseCode:
         """
         
         return DataBaseCode.conn_db(query)
-    
-    
+     
 class DataBaseTwoAuth:
     
     @staticmethod

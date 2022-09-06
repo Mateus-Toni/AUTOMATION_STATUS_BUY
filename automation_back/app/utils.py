@@ -1,6 +1,7 @@
 import logging
 import re 
 from functools import wraps
+from flask_jwt_extended import get_jwt
 
 
 REGEX_EMAIL = r'^([\w\.]+@[\w]+?\.com\.?b?r?)$'
