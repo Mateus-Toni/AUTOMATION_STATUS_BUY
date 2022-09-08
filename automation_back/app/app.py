@@ -22,7 +22,7 @@ app.config["JWT_ACCESS_TOKEN_EXPIRES"] = ACCESS_EXPIRES
 app.config["JWT_SECRET_KEY"] = "super_secret_key"  # Change this!
 jwt = JWTManager(app)
 
-@app.route('/cadastro', methods=['POST'])
+@app.route('/register', methods=['POST'])
 def cadastro():
     
     data = request.get_json()
@@ -219,11 +219,11 @@ def login():
                                     #manda email do código
                                     print(user_code_two_auth)
                                     
-                                    return {'acess_token': access_token}, 200
+                                    return jsonify(access_token), 200
                                 
                         else:
                             
-                            return {'acess_token': two_auth['jwt']}, 200
+                            return jsonify(two_auth['jwt']), 200
           
                     else:
                         
@@ -365,4 +365,4 @@ def modify_token():
 
 if __name__ == '__main__':
 
-    app.run(debug=True)
+    app.run(debug=True, port=5000)
