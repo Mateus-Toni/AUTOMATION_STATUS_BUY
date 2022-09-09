@@ -22,44 +22,58 @@ app.config["JWT_ACCESS_TOKEN_EXPIRES"] = ACCESS_EXPIRES
 app.config["JWT_SECRET_KEY"] = "super_secret_key"  # Change this!
 jwt = JWTManager(app)
 
+@app.route('/')
+def index():
+    
+    return {'msg': 'im ready'}, 200
+
+
 @app.route('/register', methods=['POST'])
 def cadastro():
     
-    data = request.get_json()
+    try:
+
+        data = request.get_json()
     
-    if data:
+    except:    
         
-        name = data['name']
-        last_name = data["last_name"]
-        phone = data["phone"]
-        email = data["email"]
-        password = data["password"]
-        birthday = data["birthday"]
-        cpf = data["cpf"]
-        
-        user = User(
-            name=name,
-            last_name=last_name,
-            phone=phone,
-            email=email,
-            password=password,
-            birthday=birthday,
-            cpf=cpf
-            ).create_user_db()
-        
-        if user:
-            
-            return user
-            
-        else:
-            
-            return user
+        return {"msg": "missing json data"}, 400
     
     else:
         
-        return {"msg": "missing json data"}, 400
-
-
+        if data:
+            
+            name = data['name']
+            last_name = data["last_name"]
+            phone = data["phone"]
+            email = data["email"]
+            password = data["password"]
+            birthday = data["birthday"]
+            cpf = data["cpf"]
+            
+            user = User(
+                name=name,
+                last_name=last_name,
+                phone=phone,
+                email=email,
+                password=password, 
+                birthday=birthday,
+                cpf=cpf
+                ).create_user_db()
+            
+            if user:
+                
+                return user
+                
+            else:
+                
+                return user
+            
+        else:
+            
+            return {"msg": "missing json data"}, 400
+            
+            
 @app.route('/meu_perfil/<id_user>/update', methods=['GET', 'POST'])  # type: ignore
 @jwt_required()
 def update(id_user):
@@ -219,11 +233,11 @@ def login():
                                     #manda email do código
                                     print(user_code_two_auth)
                                     
-                                    return jsonify(access_token), 200
+                                    return {'access_token': access_token}, 200
                                 
                         else:
                             
-                            return jsonify(two_auth['jwt']), 200
+                            return {'access_token': two_auth['jwt']}, 200
           
                     else:
                         
@@ -262,7 +276,7 @@ def login():
                                 #manda email do código
                                 print(user_code_two_auth)
                                 
-                                return {'acess_token': access_token}, 200
+                                return {'access_token': access_token}, 200
                 
                 else:
                     
@@ -307,7 +321,7 @@ def two_auth():
                 
                 if user_code_db['timming_code'] <= user_code_db['timming_code'] + timedelta(30):
                     
-                    if str(user_code_db['user_code']) == str(user_code_input['code_jwt']):
+                    if str(user_code_db['user_code']) == str(user_code_input['code']):
                         
                         jti = get_jwt()['jti']
                         
@@ -342,8 +356,44 @@ def two_auth():
             else:
                 
                 return {'msg': 'missing data'}, 400
- 
-               
+
+
+@app.route("/verify_token", methods=['POST'])
+@jwt_required()
+def verify_token():
+    
+    jwt = get_jwt()
+    id_user = get_jwt_identity()
+    
+    
+    is_revoket = DataBaseTwoAuth.verify_if_token_is_revoked(jti=jwt['jti'], id_user=id_user)
+    
+    if is_revoket:
+        
+        return {'msg': 'revoked token'}, 400
+    
+    else:
+        
+        two_auth = DataBaseTwoAuth.verify_if_two_auth_exists(id_user)
+                    
+        if two_auth:
+            
+            date_now = datetime.now()
+            date_db = two_auth['timming'] 
+            
+            if (date_now - date_db).days <= 2:
+                
+                return {'msg': 'valid token'}, 200
+            
+            else:
+                
+                return {'msg': 'invalid token'}, 400
+            
+        else:
+            
+            return {'msg': 'invalid token'}, 400    
+
+          
 @app.route("/logout", methods=['DELETE'])
 @jwt_required()
 def modify_token():

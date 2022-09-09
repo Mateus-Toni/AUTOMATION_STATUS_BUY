@@ -9,7 +9,7 @@
 - [X] Criação banco de dados usuários;
 - [X] Criação CRUD banco;
 - [X] Implemetar two auth
-- [ ] Implementar validação de email por código
+- [X] Implementar validação de email por código
 - [ ] implementar esqueceu sua senha
 - [ ] criar função de cálculo para validar cpf
 - [ ] Criação HTML simples usuário (perfil);
@@ -17,9 +17,10 @@
 - [X] Criação Lógica Cadastro;
 - [X] Criação Lógica atualizar usuario;
 - [ ] Estudos Mensagens via whatsapp automaticamente;
-- [ ] Estudos enviar emails;
+- [X] Estudos enviar emails;
 - [ ] Estudos Enviar SMS;
 - [ ] Criação Lógica enviar Mensagem WPP;
 - [ ] Criação Lógica enviar Mensagem sms;
 - [ ] Criação Lógica enviar email;
 - [ ] Criar email para o asb
+- [X] Rota no back end para verificar token

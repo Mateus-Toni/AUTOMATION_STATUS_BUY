@@ -557,7 +557,7 @@ class DataBaseTwoAuth:
     def verify_if_token_is_revoked(id_user, jti):
         
         query = f"""
-        select * from revoket_jwt
+        select * from revoked_jwt
         where id_user = '{id_user}' and
         jti = '{jti}';
         """
