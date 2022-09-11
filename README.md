@@ -21,6 +21,6 @@
 - [ ] Estudos Enviar SMS;
 - [ ] Criação Lógica enviar Mensagem WPP;
 - [ ] Criação Lógica enviar Mensagem sms;
-- [ ] Criação Lógica enviar email;
+- [X] Criação Lógica enviar email;
 - [ ] Criar email para o asb
 - [X] Rota no back end para verificar token

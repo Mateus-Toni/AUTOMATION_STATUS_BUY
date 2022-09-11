@@ -1,5 +1,6 @@
 import logging
 from datetime import datetime
+from select import select
 
 import mysql.connector
 
@@ -387,6 +388,36 @@ class DataBaseCode:
         return DataBaseCode.conn_db(query, fetch=True)
     
     @staticmethod
+    def code_on_db(id_user, id_code):
+        
+        query = f"""
+        select * from user_code
+        where id_user = '{id_user}' and
+        id_code = '{id_code}';
+        """
+        
+        with DataBase(NAME, PASSWORD, HOST, DATABASE) as cursor:
+                
+            if cursor:
+                
+                try:
+                
+                    cursor.execute(query)
+                    data = cursor.fetchall()
+            
+                except Exception as erro_:
+                
+                    logging.warning('-'*50)
+                    logging.warning(f'error in DB\nname error:\n{erro_}')
+                    logging.warning('-'*50)
+                    
+                    return False
+            
+                else:
+                    
+                    return data
+    
+    @staticmethod
     def update_code(obj, code,  surname, status, type_mensage, timing_to_mensage):
         
         query = f"""
@@ -402,6 +433,47 @@ class DataBaseCode:
         """
         
         return DataBaseCode.conn_db(query)
+    
+    @staticmethod
+    def delete_code(obj, id_code):
+        
+        query = f"""
+        delete from user_code
+        where id_user = '{obj.id_user}' and
+        id_code = '{id_code}';
+        """
+        
+        return DataBaseCode.conn_db(query=query)
+    
+    @staticmethod    
+    def get_all_code_user(id_user):
+        
+        query = f"""
+        select * from user_code 
+        where id_user = '{id_user}';
+        """
+        
+        with DataBase(NAME, PASSWORD, HOST, DATABASE) as cursor:
+                
+            if cursor:
+                
+                try:
+                
+                    cursor.execute(query)
+                    data = cursor.fetchall()
+            
+                except Exception as erro_:
+                
+                    logging.warning('-'*50)
+                    logging.warning(f'error in DB\nname error:\n{erro_}')
+                    logging.warning('-'*50)
+                    
+                    return False
+            
+                else:
+                    
+                    return data
+                
      
 class DataBaseTwoAuth:
     
@@ -594,7 +666,5 @@ class DataBaseTwoAuth:
         """
         
         return DataBaseTwoAuth.conn_db(query)
-    
-    
     
     

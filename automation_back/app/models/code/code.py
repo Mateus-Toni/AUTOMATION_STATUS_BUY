@@ -23,21 +23,21 @@ class Code:
     def create_code_db(self):
         
         if DataBaseCode.verify_if_code_exists(self):
-            
-            return {'msg': 'code alredy exists'}, 400
-        
+
+            return {'msg': 'code already exists'}, 400
+
         if utils.validate_data_code(self.code):
-            
+
             if DataBaseCode.create_code(self):
-                
-                return {'msg': 'sucess'}, 200
-                
+
+                return {'msg': 'success'}, 200
+
             else:
-                
-                return {'msg': 'error in db'}, 400     
-            
+
+                return {'msg': 'error in db'}, 400
+
         else:
-            
+
             return {'msg': 'invalid input'}, 400
         
         
@@ -47,7 +47,7 @@ class Code:
             
             if DataBaseCode.update_code(self, code, surname, status, type_mensage, timing_to_mensage):
                 
-                return {'msg': 'sucess'}, 200
+                return {'msg': 'success'}, 200
             
             else:
                 
@@ -57,9 +57,18 @@ class Code:
             
             return {'msg': 'invalid input'}, 400
     
+    
     def delete_code_db(self):
         
-        pass
+        if DataBaseCode.delete_code(self):
+            
+            return {'msg': 'success'}, 200
+            
+        else:
+            
+            return {'msg': 'error in db'}, 400
+        
+        
     
         
         
