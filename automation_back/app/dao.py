@@ -435,12 +435,11 @@ class DataBaseCode:
         return DataBaseCode.conn_db(query)
     
     @staticmethod
-    def delete_code(obj, id_code):
+    def delete_code(id_code):
         
         query = f"""
         delete from user_code
-        where id_user = '{obj.id_user}' and
-        id_code = '{id_code}';
+        where id_code = '{id_code}';
         """
         
         return DataBaseCode.conn_db(query=query)
@@ -666,5 +665,4 @@ class DataBaseTwoAuth:
         """
         
         return DataBaseTwoAuth.conn_db(query)
-    
     

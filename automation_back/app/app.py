@@ -515,8 +515,45 @@ def new_code():
 
     if request.method == 'DELETE':
 
-        pass
+        try:
 
+            data = request.get_json()
+
+        except:
+
+            return {'msg': 'missing json data'}, 400
+
+        else:
+
+            if data:
+
+                code = data['id_code']
+                
+                data_code_db = DataBaseCode.code_on_db(
+                    
+                    id_user=id_user,
+                    id_code=code
+                    
+                    )
+                
+                if data_code_db:
+
+                    new_code = Code(
+                        
+                        code = data_code_db['code'],
+                        id_user = data_code_db['id_user'],
+                        surname = data_code_db['surname'],
+                        status = data_code_db['status'],
+                        type_mensage = data_code_db['type_mensage'],
+                        timing_to_mensage = data_code_db['timing_to_mensage']
+                        
+                    ).delete_code_db(code)
+                    
+                    return jsonify(new_code)
+                    
+                else:
+                    
+                    return {'msg': 'code not exists or error in db'}, 400
 
 
 if __name__ == '__main__':

@@ -24,3 +24,4 @@
 - [X] Criação Lógica enviar email;
 - [ ] Criar email para o asb
 - [X] Rota no back end para verificar token
+- [ ] criar lógica de ler arquivo com vários códigos de rastreio

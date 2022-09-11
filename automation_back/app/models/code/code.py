@@ -58,9 +58,9 @@ class Code:
             return {'msg': 'invalid input'}, 400
     
     
-    def delete_code_db(self):
+    def delete_code_db(self, id_code):
         
-        if DataBaseCode.delete_code(self):
+        if DataBaseCode.delete_code(id_code):
             
             return {'msg': 'success'}, 200
             
